@@ -5,8 +5,8 @@ const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
 const app = express();
 app.use(cors());
 
-const APP_ID = "9b03dfee5a384a88a049680be5b2435a";
-const APP_CERTIFICATE = "c0463d911ebb45e2bb31154a7e208872";
+const APP_ID = process.env.APP_ID;
+const APP_CERTIFICATE = process.env.APP_CERTIFICATE;
 
 app.get('/token', (req, res) => {
   const channelName = req.query.channel;
@@ -32,7 +32,7 @@ app.get('/token', (req, res) => {
   return res.json({ token });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Token server läuft auf http://localhost:${PORT}`);
 });
