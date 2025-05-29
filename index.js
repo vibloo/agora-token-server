@@ -1,11 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
-require('dotenv').config();
+require('dotenv').config(); // ✅ .env laden
 
 const app = express();
 app.use(cors());
 
+// 🔐 Werte aus .env
 const APP_ID = process.env.APP_ID;
 const APP_CERTIFICATE = process.env.APP_CERTIFICATE;
 
@@ -17,7 +18,7 @@ app.get('/token', (req, res) => {
 
   const uid = 0;
   const role = RtcRole.PUBLISHER;
-  const expireTime = 3600;
+  const expireTime = 86400; // ✅ 24 Stunden gültig
   const currentTime = Math.floor(Date.now() / 1000);
   const privilegeExpireTime = currentTime + expireTime;
 
@@ -38,7 +39,7 @@ app.get('/token', (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Token server läuft auf http://localhost:${PORT}`);
 });
