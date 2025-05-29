@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
-
-// 🌍 .env für Render oder lokal
 require('dotenv').config();
 
 const app = express();
@@ -23,16 +21,21 @@ app.get('/token', (req, res) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const privilegeExpireTime = currentTime + expireTime;
 
-  const token = RtcTokenBuilder.buildTokenWithUid(
-    APP_ID,
-    APP_CERTIFICATE,
-    channelName,
-    uid,
-    role,
-    privilegeExpireTime
-  );
+  try {
+    const token = RtcTokenBuilder.buildTokenWithUid(
+      APP_ID,
+      APP_CERTIFICATE,
+      channelName,
+      uid,
+      role,
+      privilegeExpireTime
+    );
 
-  return res.json({ token });
+    return res.json({ token });
+  } catch (err) {
+    console.error('❌ Fehler beim Erstellen des Tokens:', err);
+    return res.status(500).json({ error: 'Token generation failed' });
+  }
 });
 
 const PORT = process.env.PORT || 10000;
