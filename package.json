@@ -1,17 +1,13 @@
 {
   "name": "agora-token-server",
   "version": "1.0.0",
-  "description": "Token server for Agora using Express and dotenv",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js"
+    "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "agora-access-token": "^2.0.4",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
     "express": "^5.1.0"
   }
 }
