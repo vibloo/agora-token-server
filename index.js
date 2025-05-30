@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
-require('dotenv').config(); // ✅ lädt .env Datei
 
 const app = express();
 app.use(cors());
 
-const APP_ID = process.env.APP_ID;
-const APP_CERTIFICATE = process.env.APP_CERTIFICATE;
+// ✅ DIREKT HIER EINTRAGEN
+const APP_ID = '9b03dfee5a384a88a049680be5b2435a';
+const APP_CERTIFICATE = 'c0463d911ebb45e2bb31154a7e208872';
 
 app.get('/token', (req, res) => {
   const channelName = req.query.channel;
@@ -39,5 +39,5 @@ app.get('/token', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Token server läuft auf http://localhost:${PORT}`);
+  console.log(`✅ Token-Server läuft auf http://localhost:${PORT}`);
 });
