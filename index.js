@@ -1,12 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const { RtcTokenBuilder, RtcRole } = require('agora-access-token');
-require('dotenv').config(); // ✅ .env laden
+require('dotenv').config(); // ✅ lädt .env Datei
 
 const app = express();
 app.use(cors());
 
-// 🔐 Werte aus .env
 const APP_ID = process.env.APP_ID;
 const APP_CERTIFICATE = process.env.APP_CERTIFICATE;
 
@@ -18,7 +17,7 @@ app.get('/token', (req, res) => {
 
   const uid = 0;
   const role = RtcRole.PUBLISHER;
-  const expireTime = 86400; // ✅ 24 Stunden gültig
+  const expireTime = 86400; // 24 Stunden
   const currentTime = Math.floor(Date.now() / 1000);
   const privilegeExpireTime = currentTime + expireTime;
 
@@ -31,7 +30,6 @@ app.get('/token', (req, res) => {
       role,
       privilegeExpireTime
     );
-
     return res.json({ token });
   } catch (err) {
     console.error('❌ Fehler beim Erstellen des Tokens:', err);
